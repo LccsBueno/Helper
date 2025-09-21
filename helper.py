@@ -10,7 +10,7 @@ def main():
     parser.add_argument("question", help="query para o chatgpt")
     
     args = parser.parse_args()
-    print(chatInitiate(args.question))
+    print("\n"+chatInitiate(args.question))
     # print(f"Processando o arquivo: {args.question}")
 
 if __name__ == "__main__":
