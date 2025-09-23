@@ -1,3 +1,4 @@
+altgraph==0.17.4
 annotated-types==0.7.0
 anyio==4.10.0
 async-timeout==4.0.3
@@ -24,6 +25,8 @@ orjson==3.11.3
 packaging==25.0
 pydantic==2.11.9
 pydantic_core==2.33.2
+pyinstaller==6.16.0
+pyinstaller-hooks-contrib==2025.8
 python-dotenv==1.1.1
 PyYAML==6.0.2
 regex==2025.9.18
