@@ -3,6 +3,8 @@ from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 from os import path
 
+import time
+
 load_dotenv()
 
 template = PromptTemplate(
@@ -17,15 +19,32 @@ template = PromptTemplate(
     Idioma: Responda exclusivamente em português do Brasil.
 
     Pergunta: {question}
-        
+    Resposta: Somente mostre a resposta, sem nenhuma outra anotação.
     """
 )
 
-def chatInitiate(query: str) -> str:
+def chatInitiate(query: str, tempoInicio) -> str:
+
+    tempo_agr = time.time()
+    print(f"\nTempo: {tempo_agr - tempoInicio}")
+
     # model = ChatOpenAI(model=os.getenv("OPENAI_MODEL_CHAT"),  temperature=1)
-    model = ChatOpenAI(model="gpt-5-nano",  temperature=1)
+    model = ChatOpenAI(model="gpt-3.5-turbo",  temperature=1)
 
+    tempo_agr = time.time()
+    print(f"\nTempo: {tempo_agr - tempoInicio}")
+    
     chain = template | model
-    result = chain.invoke({"question": query})
+    # result = chain.invoke({"question": query})
+    
+    tempo_agr = time.time()
+    print(f"\nTempo: {tempo_agr - tempoInicio}")
+    print("\n")
+    for chunk in chain.stream({"question": query}):
+        if hasattr(chunk, 'content'):
+            print(chunk.content, end="", flush=True)
 
-    return result.content
+    tempo_agr = time.time()
+    print(f"\nTempo: {tempo_agr - tempoInicio}")
+    print()
+    # return result.content
